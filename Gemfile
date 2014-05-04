@@ -38,3 +38,5 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'ember-rails'
+gem 'ember-source', '1.5.0' # or the version you need
