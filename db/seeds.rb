@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+tags = Tag.create [{ name: "Foo"}, {name: "Bar"}]
+group = Group.create(name: "Test Group")
+Todo.create(title: "Do some stuff", details: "These are some kickass details my dudes.", due: 5.days.from_now, group: group, tags: tags)
+Todo.create(title: "Do some more stuff", details: "Some more details for you guys", due: 4.days.from_now, group: group, tags: tags)
