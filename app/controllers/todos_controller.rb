@@ -2,20 +2,24 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    if params[:ids]
+      @todos = Todo.find(params[:ids])
+    else
+      @todos = Todo.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @todos }
+      format.json { render json: { todos: @todos.as_json } }
     end
   end
 
   # GET /todos/1.json
   def show
-    @todo = Todo.find(parmas[:id])
+    @todo = Todo.find(params[:id])
 
     respond_to do |format|
-      format.json { render json: @todo }
+      format.json { render json: { todo: @todo.as_json } }
     end
   end
 
@@ -25,7 +29,7 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.save
-        format.json { render json: @todo, status: :created, todo: @todo }
+        format.json { render json: { todo: @todo.as_json }, status: :created, todo: @todo }
       else
         format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
@@ -35,10 +39,12 @@ class TodosController < ApplicationController
   # PUT /todos/1.json
   def update
     @todo = Todo.find(params[:id])
-
+    puts "######"
+    puts todo_params.inspect
+    puts "#######"
     respond_to do |format|
-      if @todo.update_attributes(params[:todo])
-        format.json { render json: @todo, status: :ok }
+      if @todo.update(todo_params)
+        format.json { render json: { todo: @todo.as_json }, status: :ok }
       else
         format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
@@ -54,4 +60,9 @@ class TodosController < ApplicationController
       format.json { render json: nil, status: :ok }
     end
   end
+
+  private
+    def todo_params
+      params[:todo].permit(:title, :details, :due, :completed, :group_id)
+    end
 end

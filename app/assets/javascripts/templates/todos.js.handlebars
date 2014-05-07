@@ -1,0 +1,8 @@
+<div>Todos2</div>
+{{#each todos}}
+<div>
+  {{#link-to "todo" this}}{{title}}{{/link-to}}
+</div>
+{{/each}}
+{{outlet}}
+</div>

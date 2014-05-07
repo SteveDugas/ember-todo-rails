@@ -1,0 +1,10 @@
+<div id="drawer">
+<ul>
+{{#each}}
+  <li>{{#link-to "todos" this}}{{name}}{{/link-to}}</li>
+{{/each}}
+</ul>
+</div>
+<div id="content">
+{{outlet}}
+</div>
