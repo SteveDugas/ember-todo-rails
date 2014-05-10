@@ -1,10 +1,22 @@
 <div id="drawer">
-<ul>
-{{#each}}
-  <li>{{#link-to "todos" this}}{{name}}{{/link-to}}</li>
-{{/each}}
-</ul>
+  <ul>
+  {{#each}}
+    <li>
+      {{#view Todos.GroupDeleteView}}
+      {{input type="hidden" value=id}}
+      <div class="js-delete">x</div>
+      {{/view}}
+      {{#link-to "todos" this}}{{name}}{{/link-to}}
+    </li>
+  {{/each}}
+    {{#view Todos.GroupsNewView}}
+    <li class="new">
+      <span>new</span>
+      <input type="text" style="display:none">
+    </li>
+    {{/view}}
+  </ul>
 </div>
 <div id="content">
-{{outlet}}
+  {{outlet}}
 </div>

@@ -21,11 +21,11 @@ class GroupsController < ApplicationController
 
   # POST /groups.json
   def create
-    @group = Group.new(parmas[:tag])
+    @group = Group.new(group_params)
 
     respond_to do |format|
       if @group.save
-        format.json { render json: @group, status: :created, todo: @group }
+        format.json { render json: { group: @group.as_json }, status: :created, todo: @group }
       else
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     respond_to do |format|
-      if @group.update_attributes(params[:tag])
+      if @group.update_attributes(params[:group])
         format.json { render json: @group, status: :ok }
       else
         format.json { render json: @group.errors, status: :unprocessable_entity }
@@ -54,4 +54,9 @@ class GroupsController < ApplicationController
       format.json { render json: nil, status: :ok }
     end
   end
+
+  private
+    def group_params
+      params[:group].permit(:name)
+    end
 end
