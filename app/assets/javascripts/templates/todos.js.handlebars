@@ -1,7 +1,16 @@
+{{#view Todos.TodosNewView}}
+  <form>
+    <div id="todo-create-input-wrap">
+      {{createTodoInput name}}
+    </div>
+  </form>
+{{/view}}
+<ul>
 {{#each todos}}
-<div>
-  {{#link-to "todo" this}}{{title}}{{/link-to}}
-</div>
+  <li>
+    {{#link-to "todo" this}}{{title}}{{/link-to}}
+  </li>
 {{/each}}
+</ul>
 {{outlet}}
 </div>

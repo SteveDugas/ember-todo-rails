@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: { groups: @groups.map { |g| g.attributes.merge(:todo_ids => g.todos.map(&:id)) }.as_json } }
+      format.json { render json: { groups: @groups.as_json } }
     end
   end
 
@@ -37,8 +37,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     respond_to do |format|
-      if @group.update_attributes(params[:group])
-        format.json { render json: @group, status: :ok }
+      if @group.update_attributes(group_params)
+        format.json { render json: { group: @group.as_json }, status: :ok }
       else
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end

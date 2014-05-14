@@ -19,9 +19,6 @@
 
 @Todos.GroupsNewView = Ember.View.extend
   editMode: false
-  actions:
-    click: ->
-      console.log("view click")
   onBodyClick: ->
     @bodyClickFunc || @bodyClickFunc = _.bind(@saveAndExit,@)
   saveAndExit: ->
@@ -41,12 +38,53 @@
       @exit()
   click: (e) ->
     unless @editMode
-      console.log("click")
       @editMode = true
       @$("span").hide()
       @$("input").val("New List").show().focus().get(0).select()
       $("body").off("click",@onBodyClick())
       $("body").one("click",@onBodyClick())
+    false
+
+@Todos.GroupsGroupView = Ember.View.extend
+  attributeBindings: ['data-id']
+  tagName: "li"
+  editing: false
+  onBodyClick: ->
+    @bodyClickFunc || @bodyClickFunc = _.bind(@saveAndExit,@)
+  saveAndExit: ->
+    id = @$("input:hidden").val()
+    name = @$("input:text").val()
+    @get("controller").send("update",{ id: id, name: name})
+    @exit()
+  exitWithoutSave: ->
+    id = @$("input:hidden").val()
+    store = @get("controller").store
+    store.find("group",id).then (group) ->
+      group.rollback()
+    @exit()
+  exit: ->
+    @$(".group-edit").hide()
+    @$("a").show()
+    $("body").off("click",@onBodyClick())
+    @editing = false
+  keyUp: (e) ->
+    if @editing and e.which is 27
+      @exitWithoutSave()
+    else if @editing and e.which is 13
+      @saveAndExit()
+  click: (e) ->
+    unless @editing
+      $("body").trigger("click")
+    e.stopPropagation()
+  doubleClick: (e) ->
+    unless @editing
+      @editing = true
+      @$(".group-edit").show().focus().get(0).select()
+      @$("a").hide()
+      $("body").off("click",@onBodyClick())
+      $("body").one("click",@onBodyClick())
+  submit: (e) ->
+    @saveAndExit()
     false
 
 @Todos.GroupDeleteView = Ember.View.extend

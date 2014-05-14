@@ -2,6 +2,6 @@
   title: DS.attr("string")
   details: DS.attr("string")
   due: DS.attr("date")
-  complete: DS.attr("boolean")
+  completed: DS.attr("boolean")
   #group_id: DS.attr()
   group: DS.belongsTo("group", {async: true})

@@ -5,16 +5,14 @@
         name: name
       .save()
     delete: (id) ->
-      console.log("gonna delete id",id, typeof id)
       @store.find('group', id).then (group) ->
-        console.log(group)
         group.destroyRecord()
-      #group.save()
-    new: ->
-      # @store.createRecord "group",
-        # name: "New List"
-      #.save()
-      # wait to save until the input is done
-      # make a new view for that
+    update: (todo) ->
+      @store.find('group', todo.id).then (group) ->
+        group.set("name", todo.name).save()
 
-
+  groupIdObserver: (->
+    id = @get("selectedGroupId")
+    $("#drawer li.selected").removeClass "selected"
+    $("#drawer li[data-id=#{id}]").addClass "selected"
+  ).observes("selectedGroupId")

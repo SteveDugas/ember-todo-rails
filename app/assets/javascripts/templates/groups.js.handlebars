@@ -1,13 +1,17 @@
 <div id="drawer">
   <ul>
   {{#each}}
-    <li>
+    {{#view Todos.GroupsGroupView data-id=id}}
+      <form>
+        {{input type="hidden" value=id}}
+        {{input type="text" class="group-edit" value=name}}
+      </form>
       {{#view Todos.GroupDeleteView}}
       {{input type="hidden" value=id}}
       <div class="js-delete">x</div>
       {{/view}}
       {{#link-to "todos" this}}{{name}}{{/link-to}}
-    </li>
+    {{/view}}
   {{/each}}
     {{#view Todos.GroupsNewView}}
     <li class="new">

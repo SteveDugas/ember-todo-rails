@@ -25,7 +25,9 @@ class TodosController < ApplicationController
 
   # POST /todos.json
   def create
-    @todo = Todo.new(parmas[:todo])
+    @todo = Todo.new(todo_params)
+    group = Group.find(params[:todo][:group_id])
+    @todo.group = group
 
     respond_to do |format|
       if @todo.save
@@ -39,9 +41,6 @@ class TodosController < ApplicationController
   # PUT /todos/1.json
   def update
     @todo = Todo.find(params[:id])
-    puts "######"
-    puts todo_params.inspect
-    puts "#######"
     respond_to do |format|
       if @todo.update(todo_params)
         format.json { render json: { todo: @todo.as_json }, status: :ok }

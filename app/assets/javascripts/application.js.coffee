@@ -13,6 +13,3 @@ AUTH_PARAM = $("meta[name='csrf-param']").attr("content")
 $(document).ajaxSend( (event, request, options) ->
   request.setRequestHeader("X-CSRF-Token", AUTH_TOKEN)
 )
-    
-@Todos = Ember.Application.create()
-@Todos.ApplicationAdapter = DS.ActiveModelAdapter.extend()
