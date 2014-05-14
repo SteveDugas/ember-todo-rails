@@ -5,12 +5,32 @@
     </div>
   </form>
 {{/view}}
-<ul>
+<ul id="todos">
 {{#each todos}}
+  {{#unless completed}}
   <li>
+    {{#view Todos.TodosTodoView}}
+    {{todoCheckbox completed}}
+    {{input type="hidden" value=id}}
     {{#link-to "todo" this}}{{title}}{{/link-to}}
+    {{/view}}
   </li>
+  {{/unless}}
 {{/each}}
+</ul>
+<p class="todos-completed-count">{{completedCount}} Completed Items</p>
+<ul id="todos-completed">
+  {{#each todos}}
+    {{#if completed}}
+    <li>
+      {{#view Todos.TodosTodoView}}
+      {{todoCheckbox completed}}
+      {{input type="hidden" value=id}}
+      {{#link-to "todo" this}}{{title}}{{/link-to}}
+      {{/view}}
+    </li>
+    {{/if}}
+  {{/each}}
 </ul>
 {{outlet}}
 </div>

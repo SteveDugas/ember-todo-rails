@@ -4,4 +4,3 @@
   setupController: (controller, model) ->
     this.controllerFor('groups').set("selectedGroupId",model.get("id"));
     controller.set("model",model)
-  #  controller.set("group_id")

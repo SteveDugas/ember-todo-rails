@@ -32,10 +32,11 @@
     @editMode = false
     $("body").off("click",@onBodyClick())
   keyUp: (e) ->
-    if @editMode and e.which is 13
-      @saveAndExit()
     if @editMode and e.which is 27
       @exit()
+  submit: ->
+    @saveAndExit()
+    false
   click: (e) ->
     unless @editMode
       @editMode = true

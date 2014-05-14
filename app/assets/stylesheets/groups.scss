@@ -70,16 +70,29 @@
   margin: 15px 30px;
   li {
     margin: 0 0 5px 0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: #fff;
     a {
-      display: block;
-      background: #fff;
-      border-radius: 6px;
-      padding: 10px 15px;
+      //display: block;
       color: #333;
       font-size: 16px;
       font-family: Helvetica, Arial, sans-serif;
     }
   }
+  &#todos-completed {
+    li {
+      opacity: 0.75;
+    }
+  }
+}
+.todo-parent {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  height: 100%;
+  width: 300px;
+  background: #eee;
 }
 #todo-create-input-wrap {
   margin: 0 30px;
@@ -112,4 +125,12 @@
   font-family: Helvetica, Arial, sans-serif;
   width: 100%;
   text-indent: 15px;
+}
+
+.todos-completed-count {
+  color: #FFFFFF;
+  font-family: "Helvetica Neue",HelveticaNeue,Helvetica,Arial;
+  font-size: 16px;
+  margin: 0;
+  padding: 10px 30px;
 }

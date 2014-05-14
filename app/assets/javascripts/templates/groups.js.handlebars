@@ -16,7 +16,9 @@
     {{#view Todos.GroupsNewView}}
     <li class="new">
       <span>new</span>
-      <input type="text" style="display:none">
+      <form>
+      {{input type="text" class="group-edit"}}
+      </form>
     </li>
     {{/view}}
   </ul>
