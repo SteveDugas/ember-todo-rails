@@ -9,7 +9,8 @@ class Group < ActiveRecord::Base
     {
       :id => id,
       :name => name,
-      :todo_ids => todo_ids
+      :todo_ids => todo_ids,
+      :sort_order => sort_order
     }
   end
 end

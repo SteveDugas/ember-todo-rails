@@ -1,3 +1,11 @@
+.viewport {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 #drawer {
   position: absolute;
   left: 0;
@@ -9,6 +17,9 @@
     border-top: 1px dotted #555;
     border-bottom: 1px dotted #000;
     position: relative;
+    &.ui-sortable-placeholder {
+      height: 42px;
+    }
     a,
     span {
       display: block;
@@ -47,13 +58,11 @@
         }
       }
     }
-    &.selected,
-    &.selected:hover {
+    a.active,
+    a.active:hover {
       background: red;
-      a {
-        color: #fff;
-        text-shadow: 0 0 2px #000;
-      }
+      color: #fff;
+      text-shadow: 0 0 2px #000;
     }
   }
 }
@@ -73,11 +82,24 @@
     padding: 10px 15px;
     border-radius: 6px;
     background: #fff;
+    position: relative;
     a {
       //display: block;
       color: #333;
       font-size: 16px;
       font-family: Helvetica, Arial, sans-serif;
+    }
+    .star {
+      border: 1px solid #333333;
+      border-radius: 4px;
+      height: 20px;
+      position: absolute;
+      right: 10px;
+      top: 9px;
+      width: 20px;
+      &.starred {
+        background: #ddd;
+      }
     }
   }
   &#todos-completed {
@@ -86,6 +108,7 @@
     }
   }
 }
+
 .todo-parent {
   position: absolute;
   top: 0;
@@ -113,9 +136,7 @@
     }
   }
 }
-#todo-create-input {
 
-}
 .group-edit {
   display: none;
   height: 38px;

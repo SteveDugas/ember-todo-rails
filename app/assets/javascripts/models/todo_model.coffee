@@ -3,5 +3,6 @@
   details: DS.attr("string")
   due: DS.attr("date")
   completed: DS.attr("boolean")
-  #group_id: DS.attr()
+  starred: DS.attr("boolean")
   group: DS.belongsTo("group", {async: true})
+  sort_order: DS.attr("number")

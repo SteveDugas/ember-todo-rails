@@ -1,10 +1,29 @@
+###
+ FIXME: http://stackoverflow.com/questions/11748164/ember-js-and-jquery-sortable-how-to-work-around-the-metamorph-scripts
+###
+
+
 @Todos.GroupsView = Ember.View.extend
+  classNames: ['viewport']
+  tagName: 'ul'
   willInsertElement: ->
     @sizeContainers()
     $(window).on "resize", _.bind(@sizeContainers,@)
+  willClearRender: ->
+    console.log "willClearRender"
+  didInsertElement: ->
+    console.log "didInsert"
+    $("#drawer").sortable({
+      items: "> ul > li",
+      update:  _.bind(@onSortableUpdate,@)
+    })
+    #@onSelectedChange()
   willDestroyElement: ->
     $(window).off "resize"
 
+  onSortableUpdate: ->
+    @get("controller").send("updateSorting",$("#drawer").sortable("toArray",{attribute: "data-id" }))
+    $("#drawer").sortable('cancel')
   sizeContainers: ->
     maxWidth = 300;
     windowWidth = $(window).width()
@@ -50,6 +69,10 @@
   attributeBindings: ['data-id']
   tagName: "li"
   editing: false
+  didInsertElement: ->
+    console.log "groups group view insert"
+  willClearRender: ->
+    console.log "groups group view willClearRender"
   onBodyClick: ->
     @bodyClickFunc || @bodyClickFunc = _.bind(@saveAndExit,@)
   saveAndExit: ->
@@ -90,7 +113,7 @@
 
 @Todos.GroupDeleteView = Ember.View.extend
   click: (e) ->
-    id = @$("input:hidden").val()
+    #id = @$("input:hidden").val()
     if confirm("For reals delete?")
-      @get("controller").send("delete",parseInt(id))
+      @get("controller").send("delete")
     false

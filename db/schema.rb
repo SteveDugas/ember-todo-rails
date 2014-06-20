@@ -11,25 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504171620) do
+ActiveRecord::Schema.define(version: 20140618042038) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "tags", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "tags_todos", id: false, force: true do |t|
-    t.integer  "todo_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "sort_order"
   end
 
   create_table "todos", force: true do |t|
@@ -38,8 +26,10 @@ ActiveRecord::Schema.define(version: 20140504171620) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "due"
+    t.boolean  "starred",    default: false
     t.boolean  "completed",  default: false
     t.integer  "group_id"
+    t.integer  "sort_order"
   end
 
 end

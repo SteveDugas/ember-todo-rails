@@ -1,35 +1,32 @@
+<div>
 {{#view Todos.TodosNewView}}
   <form>
     <div id="todo-create-input-wrap">
-      {{createTodoInput name}}
+      {{createTodoInput groupName}}
     </div>
   </form>
 {{/view}}
 <ul id="todos">
-{{#each todos}}
-  {{#unless completed}}
+{{#each uncompleted}}
   <li>
-    {{#view Todos.TodosTodoView}}
-    {{todoCheckbox completed}}
-    {{input type="hidden" value=id}}
-    {{#link-to "todo" this}}{{title}}{{/link-to}}
+    {{#view Todos.TodosTodoView todoid=id}}
+      {{todoCheckbox completed}}
+      {{#view Todos.TodosStarView todoid=id}}{{/view}}
+      {{#link-to "todo" this}}{{title}}{{/link-to}}
     {{/view}}
   </li>
-  {{/unless}}
 {{/each}}
 </ul>
-<p class="todos-completed-count">{{completedCount}} Completed Items</p>
+<p class="todos-completed-count">{{completed.length}} Completed Items</p>
 <ul id="todos-completed">
-  {{#each todos}}
-    {{#if completed}}
+  {{#each completed}}
     <li>
-      {{#view Todos.TodosTodoView}}
-      {{todoCheckbox completed}}
-      {{input type="hidden" value=id}}
-      {{#link-to "todo" this}}{{title}}{{/link-to}}
+      {{#view Todos.TodosTodoView todoid=id}}
+        {{todoCheckbox completed}}
+        {{#view Todos.TodosStarView todoid=id}}{{/view}}
+        {{#link-to "todo" this}}{{title}}{{/link-to}}
       {{/view}}
     </li>
-    {{/if}}
   {{/each}}
 </ul>
 {{outlet}}

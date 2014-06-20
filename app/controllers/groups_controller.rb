@@ -57,6 +57,6 @@ class GroupsController < ApplicationController
 
   private
     def group_params
-      params[:group].permit(:name)
+      params[:group].permit(:name,:sort_order)
     end
 end
